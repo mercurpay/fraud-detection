@@ -9,5 +9,6 @@ data class Transaction(
         val customerId: String,
         val type: String,
         val paymentId: String,
-        val orderId: String
+        val orderId: String,
+        val city: String
 )

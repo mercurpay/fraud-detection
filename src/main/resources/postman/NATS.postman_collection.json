@@ -58,7 +58,8 @@
 						"id": "6c905904-1fdd-4a28-8ca2-360ebbd02972",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"customerId\", jsonData.id);"
+							"postman.setEnvironmentVariable(\"customerId\", jsonData.id);",
+							"postman.setEnvironmentVariable(\"cityId\", jsonData.city);"
 						],
 						"type": "text/javascript"
 					}
@@ -137,7 +138,7 @@
 			"response": []
 		},
 		{
-			"name": "Create Transaction",
+			"name": "Create Transaction - NOK",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -155,7 +156,43 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"value\" : 1,\n  \"customerId\" : \"{{customerId}}\",\n  \"orderId\" : \"{{orderId}}\",\n  \"type\" : \"{{$guid}}\",\n  \"crmUrl\" : \"http://localhost:8084\"\n}"
+					"raw": "{\n  \"value\" : 1,\n  \"customerId\" : \"{{customerId}}\",\n  \"orderId\" : \"{{orderId}}\",\n  \"type\" : \"{{$guid}}\",\n  \"crmUrl\" : \"http://localhost:8084\",\n  \"city\" : \"{{$guid}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction - OK",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "requester-id",
+						"value": "{{requestorId}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"value\" : 1,\n  \"customerId\" : \"{{customerId}}\",\n  \"orderId\" : \"{{orderId}}\",\n  \"type\" : \"{{$guid}}\",\n  \"crmUrl\" : \"http://localhost:8084\",\n  \"city\" : \"{{cityId}}\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/transactions",
