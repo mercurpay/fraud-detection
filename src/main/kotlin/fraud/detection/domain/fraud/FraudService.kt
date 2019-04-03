@@ -18,6 +18,7 @@ class FraudService(
 
     fun analyzeTransaction(transaction: Transaction) {
         log.info("Analyzing transaction {}", transaction)
+        val customer = customerService.get(transaction.customerId)
         val fraud = fraudRepository.save(Fraud(orderId = transaction.orderId))
         notifyFraud("FRAUD", fraud)
         log.info("Analyzed transaction {}", transaction)
