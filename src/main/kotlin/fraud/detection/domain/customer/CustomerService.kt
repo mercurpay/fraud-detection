@@ -16,19 +16,16 @@ class CustomerService(
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
-    private val managedChannel: ManagedChannel
-
-    init {
-        this.managedChannel = ManagedChannelBuilder
-                .forAddress(host, port)
-                .usePlaintext(java.lang.Boolean.TRUE)
-                .build()
-    }
+    private val managedChannel = ManagedChannelBuilder
+            .forAddress(host, port)
+            .usePlaintext(java.lang.Boolean.TRUE)
+            .build()
 
     operator fun get(id: String): Customer {
         log.info("Getting Customer=[{}]", id)
 
-        val stub = CustomerServiceGrpc.newBlockingStub(managedChannel).withDeadlineAfter(1, TimeUnit.SECONDS)
+        val stub = CustomerServiceGrpc
+                .newBlockingStub(managedChannel).withDeadlineAfter(1, TimeUnit.SECONDS)
         val request = CustomerFindRequest.newBuilder().build()
         val response = stub.findCustomer(request)
 

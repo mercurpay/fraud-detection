@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "1d08e941-716c-48f7-939e-e49edf171928",
+		"name": "NATS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Requestor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c905904-1fdd-4a28-8ca2-360ebbd02972",
+						"exec": [
+							"var location = postman.getResponseHeader(\"Location\");",
+							"postman.setEnvironmentVariable(\"requestorId\", location.split(\"/\")[5]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"{{$guid}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/requesters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"requesters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c905904-1fdd-4a28-8ca2-360ebbd02972",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"orderId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"value\" : 1,\n\t\"customerId\" : \"{{$guid}}\",\n\t\"requestId\" : \"{{$guid}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "requester-id",
+						"value": "{{requestorId}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"value\" : 1,\n  \"customerId\" : \"{{$guid}}\",\n  \"orderId\" : \"{{orderId}}\",\n  \"type\" : \"{{$guid}}\",\n  \"crmUrl\" : \"http://localhost:8084\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Frauds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93bc78b9-7987-4349-a4c4-d3f98b9c3422",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"fraudId\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8083/frauds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"frauds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalidate Fraud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93bc78b9-7987-4349-a4c4-d3f98b9c3422",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8083/frauds/{{fraudId}}/invalidation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"frauds",
+						"{{fraudId}}",
+						"invalidation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93bc78b9-7987-4349-a4c4-d3f98b9c3422",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8084/api/orders/{{orderId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"orders",
+						"{{orderId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all frauds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93bc78b9-7987-4349-a4c4-d3f98b9c3422",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8083/frauds/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"frauds",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
