@@ -3,10 +3,7 @@ package fraud.detection.infra
 import fraud.detection.domain.fraud.FraudService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/frauds")
@@ -28,5 +25,8 @@ class FraudController(val fraudService: FraudService) {
 
         return ResponseEntity.status(status).build<String>()
     }
+
+    @DeleteMapping("/all")
+    fun deleteAll() = fraudService.deleteAll()
 
 }
