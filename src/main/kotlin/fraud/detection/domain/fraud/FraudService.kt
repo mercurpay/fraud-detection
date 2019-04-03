@@ -22,4 +22,13 @@ class FraudService(val fraudRepository: FraudRepository, val objectMapper: Objec
         log.info("Analyzed transaction {}", transaction)
     }
 
+    fun getFrauds() = fraudRepository.findAll()
+
+    fun getFraud(id: String) = fraudRepository.findById(id)
+
+    fun invalidateFraud(fraud: Fraud) {
+        fraud.status = FraudStatus.NOT_SUSPECTED
+        fraudRepository.save(fraud)
+    }
+
 }
