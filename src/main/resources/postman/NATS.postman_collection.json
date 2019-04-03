@@ -50,6 +50,49 @@
 			"response": []
 		},
 		{
+			"name": "Create Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c905904-1fdd-4a28-8ca2-360ebbd02972",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"customerId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"{{$guid}}\",\n    \"lastName\": \"{{$guid}}\",\n    \"document\": \"{{$guid}}\",\n    \"address\": \"{{$guid}}\",\n    \"city\": \"{{$guid}}\",\n    \"country\": \"{{$guid}}\",\n    \"email\": \"{{$guid}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8083/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Order",
 			"event": [
 				{
@@ -112,7 +155,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"value\" : 1,\n  \"customerId\" : \"{{$guid}}\",\n  \"orderId\" : \"{{orderId}}\",\n  \"type\" : \"{{$guid}}\",\n  \"crmUrl\" : \"http://localhost:8084\"\n}"
+					"raw": "{\n  \"value\" : 1,\n  \"customerId\" : \"{{customerId}}\",\n  \"orderId\" : \"{{orderId}}\",\n  \"type\" : \"{{$guid}}\",\n  \"crmUrl\" : \"http://localhost:8084\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/transactions",
