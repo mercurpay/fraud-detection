@@ -21,7 +21,6 @@ docker run -d --name=nats-server --net=host nats:latest
 1. `mvn package docker:build`
 2. `docker run --rm --name=fraud-detection --net=host larchanjo/fraud-detection:latest`
 
-# TODO
+# Kubernetes
 
-* Dockerfile
-* Deployments Kubernetes \ Istio
+Look the file `k8s-deployment.yaml`
