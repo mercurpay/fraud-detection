@@ -18,6 +18,5 @@ docker run -d --name=nats-server --net=host nats:latest
 
 ## TODO
 
-* Jaeger
 * Dockerfile
 * Deployments Kubernetes \ Istio
