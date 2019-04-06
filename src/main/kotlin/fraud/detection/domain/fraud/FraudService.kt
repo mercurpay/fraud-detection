@@ -35,7 +35,7 @@ class FraudService(
         log.info("Invalidating {}", fraud)
         fraud.status = FraudStatus.NOT_SUSPECTED
         fraudRepository.save(fraud)
-        notifyFraud("APPROVED", fraud)
+        notifyFraud("CHECKED", fraud)
         log.info("Invalidated {}", fraud)
     }
 
