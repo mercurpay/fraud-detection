@@ -2,7 +2,7 @@
 
 Service that's part of Service Mesh studies.
 
-## Setup
+# Setup
 
 ### Jaeger
 
@@ -16,7 +16,12 @@ docker run --name mongo --net host -d mongo:latest
 
 docker run -d --name=nats-server --net=host nats:latest
 
-## TODO
+# Docker
+
+1. `mvn package docker:build`
+2. `docker run --rm --name=fraud-detection --net=host larchanjo/fraud-detection:latest`
+
+# TODO
 
 * Dockerfile
 * Deployments Kubernetes \ Istio
