@@ -37,7 +37,31 @@ items:
             version: v1
         spec:
           containers:
-            - name: fraud-detection
+            - env:
+                - name: KUBERNETES_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: v1
+                      fieldPath: metadata.namespace
+                - name: MONGO_HOST
+                  value: mongodb.database.svc.cluster.local
+                - name: NATS_HOST
+                  value: 10.39.251.97
+                - name: NATS_USER
+                  value: nats_client
+                - name: NATS_PASS
+                  value: DZ3mFLXEDO
+                - name: JAEGER_ENDPOINT
+                  value: http://jaeger-collector:14268/api/traces
+                - name: CUSTOMER_SERVICE_HOST
+                  value: customers.payments.svc.cluster.local
+                - name: CUSTOMER_SERVICE_PORT
+                  value: '50051'
+                - name: CRM_SERVICE_HOST
+                  value: crm.payments.svc.cluster.local
+                - name: CRM_PORT
+                  value: '8080'
+              name: fraud-detection
               image: larchanjo/fraud-detection:0.0.1-SNAPSHOT
               imagePullPolicy: Always
               ports:
@@ -58,26 +82,3 @@ items:
                 initialDelaySeconds: 120
               securityContext:
                 privileged: false
-              - env:
-                  - name: KUBERNETES_NAMESPACE
-                    valueFrom:
-                      fieldRef:
-                        fieldPath: metadata.namespace
-                  - name: MONGO_HOST
-                    value: "mongodb://mongodb.database.svc.cluster.local:27017"
-                  - name: NATS_HOST
-                    value: "nats://10.43.242.150:4222"
-                  - name: NATS_USER
-                    value: "nats_client"
-                  - name: NATS_PASS
-                    value: "DZ3mFLXEDO"
-                  - name: JAEGER_ENDPOINT
-                    value: "http://jaeger-collector:14268/api/traces"
-                  - name: CUSTOMER_SERVICE_HOST
-                    value: "customers.payments.svc.cluster.local"
-                  - name: CUSTOMER_SERVICE_PORT
-                    value: 50051
-                  - name: CRM_SERVICE_HOST
-                    value: "crm.payments.svc.cluster.local"
-                  - name: CRM_PORT
-                    value: 8080
