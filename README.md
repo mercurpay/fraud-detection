@@ -24,3 +24,12 @@ docker run -d --name=nats-server --net=host nats:latest
 # Kubernetes
 
 Look the file `k8s-deployment.yaml`
+
+# TODO
+
+- deploy new version /api
+  - update postman
+  - update kubernetes
+- add kubernetes deployments to all
+- apply virtual service
+- apply gateway

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/frauds")
+@RequestMapping("/api/frauds")
 class FraudController(val fraudService: FraudService) {
 
     @GetMapping

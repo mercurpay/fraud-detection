@@ -1,5 +1,7 @@
-package fraud.detection.domain.customer
+package fraud.detection.infra
 
+import fraud.detection.domain.customer.CustomerService
+import fraud.detection.domain.customer.NewCustomerRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/api/customers")
 class CustomerController(val customerService: CustomerService) {
 
     @PostMapping
