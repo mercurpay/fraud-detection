@@ -12,6 +12,9 @@ class FraudController(val fraudService: FraudService) {
     @GetMapping
     fun getFrauds() = fraudService.getFrauds()
 
+    @GetMapping("/{id}")
+    fun getFraud(@PathVariable id: String) = fraudService.getFraud(id)
+
     @GetMapping("/{id}/invalidation")
     fun invalidate(@PathVariable id: String): ResponseEntity<*> {
         var status = HttpStatus.OK

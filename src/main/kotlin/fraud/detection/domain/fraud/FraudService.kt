@@ -6,6 +6,7 @@ import fraud.detection.domain.crm.Event
 import fraud.detection.domain.customer.CustomerService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class FraudService(
@@ -45,10 +46,19 @@ class FraudService(
         crmService.notifyEvent(fraud.orderId, event)
     }
 
-    fun getFrauds() = fraudRepository.findAll()
+    fun getFrauds(): MutableIterable<Fraud> {
+        log.info("Getting all frauds")
+        return fraudRepository.findAll()
+    }
 
-    fun getFraud(id: String) = fraudRepository.findById(id)
+    fun getFraud(id: String): Optional<Fraud> {
+        log.info("Getting Fraud {}", id)
+        return fraudRepository.findById(id)
+    }
 
-    fun deleteAll() = fraudRepository.deleteAll()
+    fun deleteAll() {
+        log.info("Deleting all frauds")
+        fraudRepository.deleteAll()
+    }
 
 }

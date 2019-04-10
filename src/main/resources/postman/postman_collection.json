@@ -80,13 +80,14 @@
 					"raw": "{\n\t\"name\" : \"{{$guid}}\",\n    \"lastName\": \"{{$guid}}\",\n    \"document\": \"{{$guid}}\",\n    \"address\": \"{{$guid}}\",\n    \"city\": \"{{$guid}}\",\n    \"country\": \"{{$guid}}\",\n    \"email\": \"{{$guid}}\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8083/customers",
+					"raw": "http://localhost:8083/api/customers",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
+						"api",
 						"customers"
 					]
 				}
@@ -232,14 +233,53 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8083/frauds",
+					"raw": "http://localhost:8083/api/frauds",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
+						"api",
 						"frauds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fraud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93bc78b9-7987-4349-a4c4-d3f98b9c3422",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"fraudId\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/frauds/{{fraudId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"frauds",
+						"{{fraudId}}"
 					]
 				}
 			},
@@ -267,13 +307,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8083/frauds/{{fraudId}}/invalidation",
+					"raw": "http://localhost:8083/api/frauds/{{fraudId}}/invalidation",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
+						"api",
 						"frauds",
 						"{{fraudId}}",
 						"invalidation"
@@ -341,13 +382,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8083/frauds/all",
+					"raw": "http://localhost:8083/api/frauds/all",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
+						"api",
 						"frauds",
 						"all"
 					]
