@@ -11,8 +11,9 @@ import java.util.concurrent.TimeUnit
 
 @Service
 class CustomerService(
-        @Value("\${customer-service.host}") host: String,
-        @Value("\${customer-service.port}") port: Int
+        @Value("\${customer-service.host}") val host: String,
+        @Value("\${customer-service.port}") val port: Int,
+        @Value("\${grpc.deadline}") val grpcDeadline: Long
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -37,7 +38,7 @@ class CustomerService(
         log.info("Saving {}", customer)
 
         val stub = CustomerServiceGrpc
-                .newBlockingStub(managedChannel).withDeadlineAfter(1, TimeUnit.SECONDS)
+                .newBlockingStub(managedChannel).withDeadlineAfter(grpcDeadline, TimeUnit.SECONDS)
 
         val request = CustomerCreateRequest.newBuilder()
                 .setName(customer.name)
