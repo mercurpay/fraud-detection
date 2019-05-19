@@ -26,7 +26,7 @@ class CustomerService(
         log.info("Getting Customer=[{}]", id)
 
         val stub = CustomerServiceGrpc
-                .newBlockingStub(managedChannel).withDeadlineAfter(1, TimeUnit.SECONDS)
+                .newBlockingStub(managedChannel).withDeadlineAfter(grpcDeadline, TimeUnit.SECONDS)
         val request = CustomerFindRequest.newBuilder().setId(id).build()
         val response = stub.findCustomer(request)
 
